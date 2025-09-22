@@ -23,7 +23,7 @@ README.md
 
 ## 🚀 How to Reproduce
 1. Clone the Repository
-git clone https://github.com/YourUsername/Threat-Intel-Dashboard.git
+git clone https://github.com/ThristhaGurajala/Threat-Intel-Dashboard.git
 cd Threat-Intel-Dashboard
 
 2. Unzip Datasets
