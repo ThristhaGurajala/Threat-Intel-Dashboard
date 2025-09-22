@@ -1,27 +1,82 @@
-# Threat Intelligence Dashboard
+# 🛡️ Threat Intelligence Dashboard (Power BI)
+A Power BI dashboard that combines real phishing and real malware datasets to visualize Indicators of Compromise (IOCs). It provides SOC analysts with quick insights into IOC counts and threat distribution.
 
-This project demonstrates a **Threat Intelligence Dashboard** that visualizes Indicators of Compromise (IOCs), attack campaigns, and threat trends.  
-It is designed to help SOC teams and analysts quickly identify malicious activity patterns.
+## ✨ Features
+- KPI Cards: Total IOCs, Phishing IOCs, Malware IOCs
+- Bar Chart: IOC counts by source (Phishing vs Malware)
+- Pie Chart: Distribution of Phishing vs Malware
+- Built from real-world open feeds (PhishTank + URLhaus)
 
-## 🔹 Project Overview
-- Interactive dashboard built with **Power BI**.  
-- Visualizes IOC data (IPs, domains, malware names).  
-- Helps track phishing, malware, and suspicious traffic trends.  
-- Simulates real SOC threat intel workflows.
+## 📂 Repository Structure
+data/
+  datasets.zip              # contains phishing_dataset.csv + malware_dataset.csv
+dashboard/
+  ThreatIntelDashboard.pbix # Power BI dashboard file
+  screenshots/
+    dashboard_overview.png  # main preview image
+README.md
 
-## 🛠️ Tools & Technologies
-- **Power BI** for dashboard visualization  
-- **Excel/CSV** for IOC datasets  
-- **Python (optional)** for preprocessing IOC feeds  
+## 📊 Datasets
+- Phishing IOCs → phishing_dataset.csv (from PhishTank, verified phishing URLs)
+- Malware IOCs → malware_dataset.csv (from URLhaus, malware distribution feed)
+👉 Both are packaged inside data/datasets.zip to avoid GitHub secret-scanning false positives.
 
-## 📂 Project Files
-- `ioc_feed.csv` → Sample dataset of IOCs (domains, IPs, malware names).  
-- `Threat_Dashboard.pbix` → Power BI dashboard file.  
-- `dashboard_screenshot.png` → Screenshot of the dashboard.  
+## 🚀 How to Reproduce
+1. Clone the Repository
+git clone https://github.com/YourUsername/Threat-Intel-Dashboard.git
+cd Threat-Intel-Dashboard
 
-## 📊 Example Dashboard
-![Threat Intel Dashboard](dashboard_screenshot.png)
+2. Unzip Datasets
+Extract the contents of data/datasets.zip → phishing_dataset.csv + malware_dataset.csv
 
-## 📌 About
-This project was built as part of my cybersecurity portfolio.  
+3. Open in Power BI
+- If PBIX exists → open dashboard/ThreatIntelDashboard.pbix
+- Else, build from scratch:
+  - Get Data → Text/CSV
+  - Load phishing_dataset.csv → name table csv_phishing
+  - Load malware_dataset.csv → name table csv_malware
+
+## ⚙️ Building the Dashboard
+KPI Cards
+- Phishing IOCs → Card → csv_phishing[url] (Count)
+- Malware IOCs → Card → csv_malware[URL] (Count)
+- Total IOCs (measure):
+Total_IOCs = COUNTROWS(csv_phishing) + COUNTROWS(csv_malware)
+
+Comparison Visuals
+1. Create helper table (Home → Enter Data):
+Source
+Phishing IOCs
+Malware IOCs
+Name it IOC_Source_Table
+2. Measures:
+Phishing_IOCs = COUNTROWS(csv_phishing)
+Malware_IOCs  = COUNTROWS(csv_malware)
+IOC_Count =
+SWITCH(
+  SELECTEDVALUE(IOC_Source_Table[Source]),
+  "Phishing IOCs", [Phishing_IOCs],
+  "Malware IOCs", [Malware_IOCs]
+)
+3. Bar Chart → Axis = IOC_Source_Table[Source], Values = IOC_Count
+4. Pie Chart → Legend = IOC_Source_Table[Source], Values = IOC_Count
+
+Styling
+- Cards → Format → Effects → Background ON (10–20% transparency)
+- Titles → clear names (“Phishing IOCs”, “Malware IOCs”, “Total IOCs”)
+- Colors → consistent scheme (Phishing = Red/Orange, Malware = Blue)
+
+## 🖼️ Preview
+![Dashboard Overview](dashboard/screenshots/dashboard_overview.png)
+
+## 📈 Roadmap
+- Add time-series IOC trends by First_Seen
+- Add slicers (date ranges, targets)
+- Publish to Power BI Service with auto-refresh
+- Integrate live feeds (OpenPhish, AbuseIPDB, VirusTotal)
+
+## 👤 Author
+**Thristha Gurajala**  
+🔗 https://www.linkedin.com/in/thristha20024
+rsecurity portfolio.  
 **Author:** [Thristha Gurajala](https://www.linkedin.com/in/thristha20024)
