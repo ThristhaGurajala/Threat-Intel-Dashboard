@@ -1,7 +1,0 @@
-Indicator,Type,Threat,First_Seen,Source
-8.8.8.8,IP,Suspicious DNS Traffic,2025-01-10,AbuseIPDB
-1.1.1.1,IP,Phishing Command & Control,2025-02-15,AlienVault OTX
-malicious-domain.com,Domain,Phishing Campaign,2025-01-22,OpenPhish
-ransomware-bot.net,Domain,Ransomware C2,2025-03-05,AbuseIPDB
-123.45.67.89,IP,Brute Force Attack,2025-02-20,Spamhaus
-phishy-site.org,Domain,Credential Harvesting,2025-03-01,PhishTank
