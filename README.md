@@ -67,7 +67,7 @@ Styling
 - Colors → consistent scheme (Phishing = Red/Orange, Malware = Blue)
 
 ## 🖼️ Preview
-![Dashboard Overview](dashboard/screenshots/dashboard_overview.png)
+![Dashboard Overview](dashboard/screenshots/Screenshot 2025-09-21 234928.png)
 
 ## 📈 Roadmap
 - Add time-series IOC trends by First_Seen
